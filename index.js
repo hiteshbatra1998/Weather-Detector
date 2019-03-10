@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner.js';
 
 class App extends React.Component {
     state={lat:null,errorMessage:''};
@@ -12,17 +13,16 @@ class App extends React.Component {
     }
     render(){ 
         if(this.state.errorMessage && !this.state.lat){
-            return <div>Error:{this.state.errorMessage}</div>;
+            return <Spinner disp={this.state.errorMessage} /> ;
         }
         if(!this.state.errorMessage && this.state.lat){
             return (
                 <div>
                     <SeasonDisplay lat={ this.state.lat }/><br></br>
-                    Lattitude:{this.state.lat};
                 </div>
                 );
         }
-        return <div>Loading</div>;
+        return <Spinner disp='Please Allow to acess location '/>;
     }
 }
 ReactDOM.render(<App/> , document.querySelector('#root'));
